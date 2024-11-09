@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Radio Button</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="option" value="1" id="radio1"> Option 1
+        </label>
+        <label>
+            <input type="radio" name="option" value="2" id="radio2"> Option 2
+        </label>
+        <label>
+            <input type="radio" name="option" value="3" id="radio3"> Option 3
+        </label>
+    </div>
+
+    <script>
+        // Array of radio button elements
+        const radios = document.querySelectorAll('input[type="radio"]');
+        let selectedIndex = 0;
+
+        // Function to update the selected radio button
+        function updateRadioSelection(index) {
+            radios[index].checked = true;
+        }
+
+        // Listen for mouse scroll events
+        window.addEventListener('wheel', (event) => {
+            // Scroll up (event.deltaY < 0) -> Previous option
+            // Scroll down (event.deltaY > 0) -> Next option
+            if (event.deltaY < 0) {
+                selectedIndex = (selectedIndex - 1 + radios.length) % radios.length;
+            } else if (event.deltaY > 0) {
+                selectedIndex = (selectedIndex + 1) % radios.length;
+            }
+            updateRadioSelection(selectedIndex);
+        });
+
+        // Initialize the first radio button as checked
+        updateRadioSelection(selectedIndex);
+    </script>
+</body>
+</html>
